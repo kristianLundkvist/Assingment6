@@ -3,7 +3,7 @@ package p6;
 public class Array7 {
 	private int[] array;
 
-	private static final int LENGTH = 7;
+	public static final int LENGTH = 7;
 
 	public Array7() {
 		this.array = new int[Array7.LENGTH];
