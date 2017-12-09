@@ -200,7 +200,7 @@ public class Array7x7 {
 	 * @param array The array that will be used to set the array of this object.
 	 */
 	public void setArray(int[][] array) {
-		this.arrays = new int[array.length][this.arrays.length];
+		this.arrays = new int[LENGTH][LENGTH];
 
 		for (int i = 0; i < this.arrays.length; i++) {
 			for (int j = 0; j < this.arrays[i].length; j++) {
