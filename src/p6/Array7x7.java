@@ -208,4 +208,32 @@ public class Array7x7 {
 			}
 		}
 	}
+
+	//-----------------------------------------------------------------------------------
+	//						Nytt / Tim
+	//----------------------------------------------------------------------------------
+	
+	public Array7 moveLeft(Array7 newRightColumn) {
+		Array7 leftColumn = getCol(0);
+
+		for (int i = 0; i < LENGTH; i++) {
+			if (i < LENGTH - 1)
+				setCol(i, getCol(i + 1));
+			else
+				setCol(i, newRightColumn);
+		}
+		return leftColumn;
+	}
+	
+	public Array7 moveRight(Array7 newLeftColumn) {
+		Array7 rightColumn = getCol(6);
+
+		for (int i = 6; i >= 0; i--) {
+			if (i > 0)
+				setCol(i, getCol(i - 1));
+			else
+				setCol(i, newLeftColumn);
+		}
+		return rightColumn;
+	}
 }

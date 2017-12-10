@@ -15,16 +15,16 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class Test2UI extends JPanel implements ActionListener {
-	private Controller controller;
+	private UI2Controller controller;
 	private JLabel[][] labelArray;
 	private JTextField[] leftColumn;
 	private JTextField[] rightColumn;
 	private JButton btnLeft = new JButton("Flytta vänster");
 	private JButton btnRight = new JButton("Flytta Höger");
 
-	public Test2UI() {
-		// this.controller = controller;
-		// controller.setUI(this);
+	public Test2UI(UI2Controller controller) {
+		this.controller = controller;
+		controller.setUI(this);
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(600, 500));
 		JPanel labelPanel = new JPanel(new GridLayout(7, 7, 2, 2));
@@ -53,11 +53,19 @@ public class Test2UI extends JPanel implements ActionListener {
 		this.add(rightColumnPanel, BorderLayout.EAST);
 		this.add(btnPanel, BorderLayout.SOUTH);
 
+		btnLeft.addActionListener(this);
+		btnRight.addActionListener(this);
+
+		controller.updateView();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO: Write action management.
+		if (e.getSource() == btnLeft) {
+			controller.moveLeft();
+		} else if (e.getSource() == btnRight) {
+			controller.moveRight();
+		}
 	}
 
 	private void addLabelsToArray() {
@@ -96,12 +104,66 @@ public class Test2UI extends JPanel implements ActionListener {
 			panel.add(column[i]);
 		}
 	}
+	
+	//-----------------------------------------------------------------------------------
+	//						Nytt / Tim
+	//----------------------------------------------------------------------------------
+
+	public Array7 getLeftTfColumn() {
+		Array7 column = new Array7();
+		try {
+			for (int i = 0; i < leftColumn.length; i++) {
+				int nbr = Integer.parseInt(leftColumn[i].getText());
+				column.setElement(i, nbr);
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Noooooo! wrongie numberie!");
+		}
+		return column;
+	}
+
+	public Array7 getRightTfColumn() {
+		Array7 column = new Array7();
+		try {
+			for (int i = 0; i < rightColumn.length; i++) {
+				int nbr = Integer.parseInt(rightColumn[i].getText());
+				column.setElement(i, nbr);
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Noooooo! wrongie numberie!");
+		}
+		return column;
+	}
+
+	public void updateView(int[][] labelArray, int[] leftColumn, int[] rightColumn) {
+		for (int i = 0; i < 7; i++) {
+			this.leftColumn[i].setText(leftColumn[i] + "");
+			this.rightColumn[i].setText(rightColumn[i] + "");
+			for (int j = 0; j < 7; j++) {
+				this.labelArray[i][j].setText(labelArray[i][j] + "");
+			}
+		}
+	}
 
 	public static void main(String[] args) {
+		
+		int[][] n = new int[7][7];
+		for (int i = 0; i < n.length; i++) {
+			for (int j = 0; j < n[i].length; j++) {
+				n[i][j] = j + 3;
+			}
+		}
+		Array7x7 array = new Array7x7(n);
+		Array7 row = new Array7();
+		Array7 column = new Array7();
+		UI2Controller controller = new UI2Controller(array, row, column);
+		Test2UI UI = new Test2UI(controller);
+
 		JFrame frame = new JFrame("test");
 		frame.setDefaultCloseOperation(3);
-		frame.add(new Test2UI());
+		frame.add(UI);
 		frame.pack();
+		frame.setLocation(400, 200);
 		frame.setVisible(true);
 	}
 
