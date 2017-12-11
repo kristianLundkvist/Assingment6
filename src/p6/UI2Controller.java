@@ -17,17 +17,17 @@ public class UI2Controller {
 		this.ui = ui;
 	}
 
-	// public void moveLeft() {
-	// rightColumn = ui.getRightTfColumn();
-	// leftColumn = array.moveLeft(rightColumn);
-	// updateView();
-	// }
-	//
-	// public void moveRight() {
-	// leftColumn = ui.getLeftTfColumn();
-	// rightColumn = array.moveRight(leftColumn);
-	// updateView();
-	// }
+	public void moveLeft() {
+		rightColumn = ui.getRightTfColumn();
+		leftColumn = array.moveLeft(rightColumn);
+		updateView();
+	}
+
+	public void moveRight() {
+		leftColumn = ui.getLeftTfColumn();
+		rightColumn = array.moveRight(leftColumn);
+		updateView();
+	}
 
 	public void updateView() {
 		ui.updateView(array.toIntArray(), leftColumn.toIntArray(), rightColumn.toIntArray());
