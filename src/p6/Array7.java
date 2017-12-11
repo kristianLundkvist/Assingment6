@@ -27,7 +27,8 @@ public class Array7 {
 	}
 
 	/**
-	 * Constructor. Sets the data in the array based on the data in the parameter.
+	 * Constructor. Sets the data in the array based on the data in the
+	 * parameter.
 	 * 
 	 * @param array7
 	 *            Data used to determine the state of the new Array7.
@@ -50,8 +51,8 @@ public class Array7 {
 	 * Sets the value of an element in the array.
 	 * 
 	 * @param pos
-	 *            Position of the array. Throws a IndexOutOfBoundsException if the
-	 *            position is greater than 7 or less than zero.
+	 *            Position of the array. Throws a IndexOutOfBoundsException if
+	 *            the position is greater than 7 or less than zero.
 	 * @param value
 	 *            The new value.
 	 */
@@ -67,8 +68,9 @@ public class Array7 {
 	 * Returns the value of the element at a given position.
 	 * 
 	 * @param pos
-	 *            The position of the element. Throws a IndexOutOfBoundsException if
-	 *            the position is greater than 7 or less than 0.
+	 *            The position of the element. Throws a
+	 *            IndexOutOfBoundsException if the position is greater than 7 or
+	 *            less than 0.
 	 * @return The value of the element.
 	 */
 	public int getElement(int pos) {

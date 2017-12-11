@@ -16,29 +16,20 @@ import javax.swing.SwingConstants;
 
 public class Test1UIAlternativ extends JPanel {
 
+	private static final long serialVersionUID = 6391566115349859301L;
 	private final Dimension STANDARD_FIELD_DIMENSION = new Dimension(20, 20);
 	private final int STANDARD_ARRAY_LENGTH = 7;
 	private final int STANDARD_MARGIN = 2;
 	private final JLabel COLUMN_NBR = new JLabel("Kolumn nummer");
 	private final JLabel ROW_NBR = new JLabel("Rad nummer");
-
-	// private JPanel uiContainer = new JPanel(); -- Jag tog bort denna panelen
-	// helt, behövdes ej. / Tim
-
 	private JPanel array7x7Panel = new JPanel(
 			new GridLayout(STANDARD_ARRAY_LENGTH, STANDARD_ARRAY_LENGTH, STANDARD_MARGIN, STANDARD_MARGIN));
 	private JPanel leftColumnPanel = new JPanel(
 			new GridLayout(STANDARD_ARRAY_LENGTH, 1, STANDARD_MARGIN, STANDARD_MARGIN));
 	private JPanel bottomRowPanel = new JPanel(new GridLayout(1, STANDARD_ARRAY_LENGTH));
-	private JPanel controlPanel = new JPanel(); // Ändrat till Null layout
-												// istället.
-	// private JPanel columnControlPanel = new JPanel(); // -- Tog bort helt,
-	// använder endast controlPanel till alla knappar
-
+	private JPanel controlPanel = new JPanel();
 	private JPanel arrayContainer = new JPanel(new BorderLayout());
-
 	private JLabel[][] labelArray = new JLabel[STANDARD_ARRAY_LENGTH][STANDARD_ARRAY_LENGTH];
-
 	private JButton btnReadRow = new JButton("Läs rad");
 	private JButton btnWriteRow = new JButton("Skriv rad");
 	private JButton btnReadColumn = new JButton("Läs kolumn");
@@ -51,6 +42,14 @@ public class Test1UIAlternativ extends JPanel {
 	private ArrayControllerAlternativ controller;
 	private BtnListener btnListener;
 
+	/**
+	 * Constructor that initializes the panel, with all its components. The
+	 * constructor also connects this instance to the given instance of the
+	 * controller.
+	 * 
+	 * @param controller
+	 *            The controller that will control this instance.
+	 */
 	public Test1UIAlternativ(ArrayControllerAlternativ controller) {
 		this.controller = controller;
 		btnListener = new BtnListener();
@@ -59,7 +58,6 @@ public class Test1UIAlternativ extends JPanel {
 		initializeTextFieldArray();
 
 		labelArrayManager();
-
 		textFieldArrayArranger(columnTextField, leftColumnPanel);
 		textFieldArrayArranger(rowTextField, bottomRowPanel);
 
@@ -71,9 +69,6 @@ public class Test1UIAlternativ extends JPanel {
 		bottomRowPanel.setBorder(BorderFactory.createEmptyBorder(0, 49, 0, 0));
 		arrayContainer.add(bottomRowPanel, BorderLayout.SOUTH);
 
-		// Detta är nytt.
-		// Ställer in controlPanel till null layout och placerar in alla
-		// komponenter manuellt.
 		controlPanel.setLayout(null);
 		controlPanel.setPreferredSize(new Dimension(230, 300));
 		ROW_NBR.setBounds(40, 10, 80, 20);
@@ -98,15 +93,9 @@ public class Test1UIAlternativ extends JPanel {
 		btnReadColumn.addActionListener(btnListener);
 		btnWriteColumn.addActionListener(btnListener);
 
-		// uiContainer.setLayout(new BorderLayout()); Onödigt
-		// uiContainer.add(arrayContainer); Onödigt
-		// uiContainer.add(rowControlPanel);
-
-		// Lägger huvudpanelen i mitten och controlPanel till höger.
 		add(arrayContainer, BorderLayout.CENTER);
 		add(controlPanel, BorderLayout.EAST);
 
-		// Dubbelkoppla UI:n med controllern
 		controller.setUI(this);
 		controller.updateView();
 	}
@@ -161,12 +150,20 @@ public class Test1UIAlternativ extends JPanel {
 		}
 	}
 
-	// -----------------------------------------------------------------------------------------------------------
-	// Allt under detta streck är nytt / Tim
-	// -----------------------------------------------------------------------------------------------------------
-
-	// Uppdaterar alla JLabels och JTextFields så de stämmer överens med de inkomna
-	// arrayerna.
+	/**
+	 * Updates all the information presented in the window to the information
+	 * stored in the given arrays.
+	 * 
+	 * @param boxArray
+	 *            The array to set the information in the labelArray in the
+	 *            window.
+	 * @param row
+	 *            The array to set the information in the rowTextField in the
+	 *            window.
+	 * @param column
+	 *            The array to set the information in the columnTextField in the
+	 *            window.
+	 */
 	public void updateView(int[][] boxArray, int[] row, int[] column) {
 		for (int i = 0; i < STANDARD_ARRAY_LENGTH; i++) {
 			columnTextField[i].setText(column[i] + "");
@@ -177,8 +174,16 @@ public class Test1UIAlternativ extends JPanel {
 		}
 	}
 
-	// Returnerar en specifik siffra från labelArray. Alltså siffran som står på
-	// en av de JLables som utgör labelArray.
+	/**
+	 * Returns the number presented on the chosen JLabel in the labelArray in
+	 * the window.
+	 * 
+	 * @param row
+	 *            The row in the labelArray
+	 * @param column
+	 *            The column in the labelArray
+	 * @return The number presented on the JLabel
+	 */
 	public int getlblArrayElement(int row, int column) {
 		int res = 0;
 		try {
@@ -189,18 +194,24 @@ public class Test1UIAlternativ extends JPanel {
 		return res;
 	}
 
-	// Returnerar det som för tillfället står i "rowTextFieldControl".
+	/**
+	 * @return The number in the rowTextFieldControl.
+	 */
 	public int getRowTextFieldControl() {
 		return Integer.parseInt(rowTextFieldControl.getText());
 	}
 
-	// Returnerar det som för tillfället står i "columnTextFieldControl".
+	/**
+	 * @return The number in the columnTextFieldControl.
+	 */
 	public int getColumnTextFieldControl() {
 		return Integer.parseInt(columnTextFieldControl.getText());
 	}
 
-	// Returnerar det som för tillfället står i "columnTextField", lagrat i en
-	// Array7
+	/**
+	 * @return The numbers in the columnTextFieldArray, stored in an
+	 *         {@code Array7} object.
+	 */
 	public Array7 getColumnTextFieldArray() {
 		Array7 array = new Array7();
 		for (int i = 0; i < STANDARD_ARRAY_LENGTH; i++) {
@@ -211,8 +222,9 @@ public class Test1UIAlternativ extends JPanel {
 		return array;
 	}
 
-	// Returnerar det som för tillfället står i "rowTextField", lagrat i en
-	// Array7
+	/**
+	 * @return The numbers in the rowTextFieldArray, stored in an {@code Array7}.
+	 */
 	public Array7 getRowTextFieldArray() {
 		Array7 array = new Array7();
 		for (int i = 0; i < STANDARD_ARRAY_LENGTH; i++) {
@@ -223,32 +235,27 @@ public class Test1UIAlternativ extends JPanel {
 		return array;
 	}
 
-	/*
-	 * Lyssnar på knapparna i panelen och hittar på olika hyss vid tryckningar på
-	 * dem.
+	/**
+	 * Class that implements the interface ActionListener. This class can listen
+	 * to the buttons from the {@code Test1UIAlternativ} and call on different
+	 * methods in the controller class based on which button has been pushed.
+	 * 
+	 * @author Tim Normark
 	 */
 	private class BtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnReadRow) {
-				int row = getRowTextFieldControl() - 1;
-				if (row >= 0 && row < STANDARD_ARRAY_LENGTH)
-					controller.readRow(row);
+				controller.readRow();
 
 			} else if (e.getSource() == btnWriteRow) {
-				int row = getRowTextFieldControl() - 1;
-				if (row >= 0 && row < STANDARD_ARRAY_LENGTH)
-					controller.writeRow(row, getRowTextFieldArray());
+				controller.writeRow();
 
 			} else if (e.getSource() == btnReadColumn) {
-				int column = getColumnTextFieldControl() - 1;
-				if (column >= 0 && column < STANDARD_ARRAY_LENGTH)
-					controller.readColumn(column);
+				controller.readColumn();
 
 			} else if (e.getSource() == btnWriteColumn) {
-				int column = getColumnTextFieldControl() - 1;
-				if (column >= 0 && column < STANDARD_ARRAY_LENGTH)
-					controller.writeColumn(column, getColumnTextFieldArray());
+				controller.writeColumn();
 			}
 		}
 
