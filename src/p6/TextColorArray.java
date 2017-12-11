@@ -2,7 +2,11 @@ package p6;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+/**
+ * Mer eller mindre proof of concept. Kommer behöva skriva om helt och hållet! 
+ * @author Alis4
+ *
+ */
 public class TextColorArray {
 	private Array7x7 array;
 
