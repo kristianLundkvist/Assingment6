@@ -48,8 +48,8 @@ public class Array7x7 {
 	}
 
 	/**
-	 * Sets the element in the array in the given row and column to the given
-	 * value. The values of {@code row} and {@code col} must be >= 0 and <
+	 * Sets the element in the array in the given row and column to the given value.
+	 * The values of {@code row} and {@code col} must be >= 0 and <
 	 * {@code Array7x7.LENGTH} or an {@link IndexOutOfBoundsException} will be
 	 * thrown.
 	 * 
@@ -69,9 +69,9 @@ public class Array7x7 {
 	}
 
 	/**
-	 * Gets the element from the array from the given row and column. The values
-	 * of {@code row} and {@code col} must be >= 0 and < {@code Array7x7.LENGTH}
-	 * or an {@link IndexOutOfBoundsException} will be thrown.
+	 * Gets the element from the array from the given row and column. The values of
+	 * {@code row} and {@code col} must be >= 0 and < {@code Array7x7.LENGTH} or an
+	 * {@link IndexOutOfBoundsException} will be thrown.
 	 * 
 	 * @param row
 	 *            The index of the row position in the array
@@ -88,8 +88,8 @@ public class Array7x7 {
 	}
 
 	/**
-	 * Sets all the values in the arrays row with the given index, using the
-	 * values from the array in the given {@code Array7}.
+	 * Sets all the values in the arrays row with the given index, using the values
+	 * from the array in the given {@code Array7}.
 	 * 
 	 * @param row
 	 *            The index of the row in the array to set.
@@ -177,8 +177,7 @@ public class Array7x7 {
 	 * array.
 	 * 
 	 * @param array7x7
-	 *            The object who's array will be used to set this object's
-	 *            array.
+	 *            The object who's array will be used to set this object's array.
 	 */
 	public void setArray(Array7x7 array7x7) {
 		this.arrays = new int[Array7x7.LENGTH][Array7x7.LENGTH];
@@ -197,7 +196,8 @@ public class Array7x7 {
 	/**
 	 * Copies the values from the given array to this objects array.
 	 * 
-	 * @param array The array that will be used to set the array of this object.
+	 * @param array
+	 *            The array that will be used to set the array of this object.
 	 */
 	public void setArray(int[][] array) {
 		this.arrays = new int[LENGTH][LENGTH];
@@ -207,5 +207,27 @@ public class Array7x7 {
 				this.arrays[i][j] = array[i][j];
 			}
 		}
+	}
+
+	/********* new shiz to get ui2 to work ***********************/
+	Array7 shiftRight(Array7 leftColumn) {
+		Array7 temp = new Array7(this.getCol(Array7.LENGTH - 1));
+
+		for (int i = Array7.LENGTH - 2; i >= 0; i--) {
+			this.setCol(i + 1, this.getCol(i));
+		}
+		this.setCol(0, leftColumn);
+		return temp;
+	}
+
+	Array7 shiftLeft(Array7 rightColumn) {
+		Array7 temp = new Array7(this.getCol(0));
+
+		for (int i = 1; i < Array7.LENGTH; i++) {
+			this.setCol(i - 1, this.getCol(i));
+		}
+		this.setCol(Array7.LENGTH - 1, rightColumn);
+
+		return temp;
 	}
 }

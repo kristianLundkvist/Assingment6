@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,17 +15,20 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class Test2UI extends JPanel implements ActionListener {
-	private Controller controller;
+public class Test2UI extends JPanel {
+
+	private Controller2 controller;
 	private JLabel[][] labelArray;
 	private JTextField[] leftColumn;
 	private JTextField[] rightColumn;
 	private JButton btnLeft = new JButton("Flytta vänster");
 	private JButton btnRight = new JButton("Flytta Höger");
+	private ButtonListener bl;
 
-	public Test2UI() {
-		// this.controller = controller;
-		// controller.setUI(this);
+	public Test2UI(Controller2 controller2) {
+		this.controller = controller2;
+		controller.setUI(this);
+		bl = new ButtonListener();
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(600, 500));
 		JPanel labelPanel = new JPanel(new GridLayout(7, 7, 2, 2));
@@ -48,16 +52,16 @@ public class Test2UI extends JPanel implements ActionListener {
 		btnPanel.add(btnLeft);
 		btnPanel.add(btnRight);
 
+		btnLeft.addActionListener(bl);
+		btnRight.addActionListener(bl);
+
 		this.add(leftColumnPanel, BorderLayout.WEST);
 		this.add(labelPanel);
 		this.add(rightColumnPanel, BorderLayout.EAST);
 		this.add(btnPanel, BorderLayout.SOUTH);
 
-	}
+		controller.updateView();
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO: Write action management.
 	}
 
 	private void addLabelsToArray() {
@@ -98,11 +102,54 @@ public class Test2UI extends JPanel implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("test");
+		Random rand = new Random(); // testing shiz
+		int[][] n = new int[7][7];
+		for (int i = 0; i < n.length; i++) {
+			for (int j = 0; j < n[i].length; j++) {
+				n[i][j] = rand.nextInt(10);
+			}
+		}
+		Array7x7 array = new Array7x7(n);
+		Array7 row = new Array7();
+		Array7 column = new Array7();
+		Controller2 controller = new Controller2(array, row, column);
+		Test2UI ui = new Test2UI(controller);
+		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(3);
-		frame.add(new Test2UI());
+		frame.add(ui);
 		frame.pack();
+		frame.setLocation(400, 200);
 		frame.setVisible(true);
 	}
 
+	public void updateView(int[][] boardArray, int[] leftColumn, int[] rightColumn) {
+		for (int i = 0; i < 7; i++) {
+			this.leftColumn[i].setText(leftColumn[i] + "");
+			this.rightColumn[i].setText(rightColumn[i] + "");
+			for (int j = 0; j < 7; j++) {
+				labelArray[i][j].setText(boardArray[i][j] + "");
+			}
+		}
+	}
+
+	private class ButtonListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == btnLeft) {
+				controller.shiftLeft();
+			}
+
+			if (e.getSource() == btnRight) {
+				controller.shiftRight();
+			}
+		}
+	}
+
+	public String getLeftColumnNbr(int nbr) {
+		return this.leftColumn[nbr].getText();
+	}
+
+	public String getRightColumnNbr(int nbr) {
+		return this.rightColumn[nbr].getText();
+	}
 }
