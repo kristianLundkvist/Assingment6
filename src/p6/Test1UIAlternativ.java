@@ -1,10 +1,18 @@
 package p6;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class Test1UIAlternativ extends JPanel {
 
@@ -27,7 +35,6 @@ public class Test1UIAlternativ extends JPanel {
 	// private JPanel columnControlPanel = new JPanel(); // -- Tog bort helt,
 	// använder endast controlPanel till alla knappar
 
-	private JPanel controlContainer = new JPanel(new GridLayout(2, 1));
 	private JPanel arrayContainer = new JPanel(new BorderLayout());
 
 	private JLabel[][] labelArray = new JLabel[STANDARD_ARRAY_LENGTH][STANDARD_ARRAY_LENGTH];
@@ -50,8 +57,6 @@ public class Test1UIAlternativ extends JPanel {
 		setLayout(new BorderLayout());
 		initializeArray7x7();
 		initializeTextFieldArray();
-		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(STANDARD_MARGIN, STANDARD_MARGIN, STANDARD_MARGIN, STANDARD_MARGIN);
 
 		labelArrayManager();
 
@@ -160,8 +165,8 @@ public class Test1UIAlternativ extends JPanel {
 	// Allt under detta streck är nytt / Tim
 	// -----------------------------------------------------------------------------------------------------------
 
-	
-	// Uppdaterar alla JLabels och JTextFields så de stämmer överens med de inkomna arrayerna.
+	// Uppdaterar alla JLabels och JTextFields så de stämmer överens med de inkomna
+	// arrayerna.
 	public void updateView(int[][] boxArray, int[] row, int[] column) {
 		for (int i = 0; i < STANDARD_ARRAY_LENGTH; i++) {
 			columnTextField[i].setText(column[i] + "");
@@ -219,8 +224,8 @@ public class Test1UIAlternativ extends JPanel {
 	}
 
 	/*
-	 * Lyssnar på knapparna i panelen och hittar på olika hyss vid tryckningar
-	 * på dem.
+	 * Lyssnar på knapparna i panelen och hittar på olika hyss vid tryckningar på
+	 * dem.
 	 */
 	private class BtnListener implements ActionListener {
 
@@ -237,7 +242,7 @@ public class Test1UIAlternativ extends JPanel {
 
 			} else if (e.getSource() == btnReadColumn) {
 				int column = getColumnTextFieldControl() - 1;
-				if (column >= 0 && column < STANDARD_ARRAY_LENGTH) 
+				if (column >= 0 && column < STANDARD_ARRAY_LENGTH)
 					controller.readColumn(column);
 
 			} else if (e.getSource() == btnWriteColumn) {
@@ -251,7 +256,7 @@ public class Test1UIAlternativ extends JPanel {
 
 	// Testmetod
 	public static void main(String[] args) {
-		
+
 		int[][] n = new int[7][7];
 		for (int i = 0; i < n.length; i++) {
 			for (int j = 0; j < n[i].length; j++) {

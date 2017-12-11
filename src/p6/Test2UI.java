@@ -15,9 +15,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+<<<<<<< HEAD
 public class Test2UI extends JPanel {
 
 	private Controller2 controller;
+=======
+public class Test2UI extends JPanel implements ActionListener {
+	private UI2Controller controller;
+>>>>>>> branch 'development' of ssh://git@github.com/kristianLundkvist/Assingment6.git
 	private JLabel[][] labelArray;
 	private JTextField[] leftColumn;
 	private JTextField[] rightColumn;
@@ -25,10 +30,16 @@ public class Test2UI extends JPanel {
 	private JButton btnRight = new JButton("Flytta Höger");
 	private ButtonListener bl;
 
+<<<<<<< HEAD
 	public Test2UI(Controller2 controller2) {
 		this.controller = controller2;
 		controller.setUI(this);
 		bl = new ButtonListener();
+=======
+	public Test2UI(UI2Controller controller) {
+		this.controller = controller;
+		controller.setUI(this);
+>>>>>>> branch 'development' of ssh://git@github.com/kristianLundkvist/Assingment6.git
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(600, 500));
 		JPanel labelPanel = new JPanel(new GridLayout(7, 7, 2, 2));
@@ -60,8 +71,26 @@ public class Test2UI extends JPanel {
 		this.add(rightColumnPanel, BorderLayout.EAST);
 		this.add(btnPanel, BorderLayout.SOUTH);
 
+<<<<<<< HEAD
 		controller.updateView();
+=======
+		btnLeft.addActionListener(this);
+		btnRight.addActionListener(this);
 
+		controller.updateView();
+	}
+>>>>>>> branch 'development' of ssh://git@github.com/kristianLundkvist/Assingment6.git
+
+<<<<<<< HEAD
+=======
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnLeft) {
+			controller.moveLeft();
+		} else if (e.getSource() == btnRight) {
+			controller.moveRight();
+		}
+>>>>>>> branch 'development' of ssh://git@github.com/kristianLundkvist/Assingment6.git
 	}
 
 	private void addLabelsToArray() {
@@ -100,8 +129,49 @@ public class Test2UI extends JPanel {
 			panel.add(column[i]);
 		}
 	}
+	
+	//-----------------------------------------------------------------------------------
+	//						Nytt / Tim
+	//----------------------------------------------------------------------------------
+
+	public Array7 getLeftTfColumn() {
+		Array7 column = new Array7();
+		try {
+			for (int i = 0; i < leftColumn.length; i++) {
+				int nbr = Integer.parseInt(leftColumn[i].getText());
+				column.setElement(i, nbr);
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Noooooo! wrongie numberie!");
+		}
+		return column;
+	}
+
+	public Array7 getRightTfColumn() {
+		Array7 column = new Array7();
+		try {
+			for (int i = 0; i < rightColumn.length; i++) {
+				int nbr = Integer.parseInt(rightColumn[i].getText());
+				column.setElement(i, nbr);
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("Noooooo! wrongie numberie!");
+		}
+		return column;
+	}
+
+	public void updateView(int[][] labelArray, int[] leftColumn, int[] rightColumn) {
+		for (int i = 0; i < 7; i++) {
+			this.leftColumn[i].setText(leftColumn[i] + "");
+			this.rightColumn[i].setText(rightColumn[i] + "");
+			for (int j = 0; j < 7; j++) {
+				this.labelArray[i][j].setText(labelArray[i][j] + "");
+			}
+		}
+	}
 
 	public static void main(String[] args) {
+<<<<<<< HEAD
 		Random rand = new Random(); // testing shiz
 		int[][] n = new int[7][7];
 		for (int i = 0; i < n.length; i++) {
@@ -115,13 +185,34 @@ public class Test2UI extends JPanel {
 		Controller2 controller = new Controller2(array, row, column);
 		Test2UI ui = new Test2UI(controller);
 		JFrame frame = new JFrame();
+=======
+		
+		int[][] n = new int[7][7];
+		for (int i = 0; i < n.length; i++) {
+			for (int j = 0; j < n[i].length; j++) {
+				n[i][j] = j + 3;
+			}
+		}
+		Array7x7 array = new Array7x7(n);
+		Array7 row = new Array7();
+		Array7 column = new Array7();
+		UI2Controller controller = new UI2Controller(array, row, column);
+		Test2UI UI = new Test2UI(controller);
+
+		JFrame frame = new JFrame("test");
+>>>>>>> branch 'development' of ssh://git@github.com/kristianLundkvist/Assingment6.git
 		frame.setDefaultCloseOperation(3);
+<<<<<<< HEAD
 		frame.add(ui);
+=======
+		frame.add(UI);
+>>>>>>> branch 'development' of ssh://git@github.com/kristianLundkvist/Assingment6.git
 		frame.pack();
 		frame.setLocation(400, 200);
 		frame.setVisible(true);
 	}
 
+<<<<<<< HEAD
 	public void updateView(int[][] boardArray, int[] leftColumn, int[] rightColumn) {
 		for (int i = 0; i < 7; i++) {
 			this.leftColumn[i].setText(leftColumn[i] + "");
@@ -153,3 +244,6 @@ public class Test2UI extends JPanel {
 		return this.rightColumn[nbr].getText();
 	}
 }
+=======
+}
+>>>>>>> branch 'development' of ssh://git@github.com/kristianLundkvist/Assingment6.git

@@ -209,25 +209,4 @@ public class Array7x7 {
 		}
 	}
 
-	/********* new shiz to get ui2 to work ***********************/
-	Array7 shiftRight(Array7 leftColumn) {
-		Array7 temp = new Array7(this.getCol(Array7.LENGTH - 1));
 
-		for (int i = Array7.LENGTH - 2; i >= 0; i--) {
-			this.setCol(i + 1, this.getCol(i));
-		}
-		this.setCol(0, leftColumn);
-		return temp;
-	}
-
-	Array7 shiftLeft(Array7 rightColumn) {
-		Array7 temp = new Array7(this.getCol(0));
-
-		for (int i = 1; i < Array7.LENGTH; i++) {
-			this.setCol(i - 1, this.getCol(i));
-		}
-		this.setCol(Array7.LENGTH - 1, rightColumn);
-
-		return temp;
-	}
-}
