@@ -4,7 +4,7 @@ package p6;
  * Class that can hold a two dimensional array of {@code int} values. The length
  * of the arrays rows and columns are fixed to the constant value
  * {@code Array7x7.LENGTH}
- * 
+ *
  * @author Tim Normark
  * @author Kristian Lundkvist
  */
@@ -29,7 +29,7 @@ public class Array7x7 {
 
 	/**
 	 * Constructs an Array7x7 using a copy of the array from the given object.
-	 * 
+	 *
 	 * @param array
 	 *            The object who's array will be copied to this array.
 	 */
@@ -39,7 +39,7 @@ public class Array7x7 {
 
 	/**
 	 * Constructs an Array7x7 and copies the given array to this objects array.
-	 * 
+	 *
 	 * @param array
 	 *            The array that will be copied and used in this object.
 	 */
@@ -52,7 +52,7 @@ public class Array7x7 {
 	 * The values of {@code row} and {@code col} must be >= 0 and <
 	 * {@code Array7x7.LENGTH} or an {@link IndexOutOfBoundsException} will be
 	 * thrown.
-	 * 
+	 *
 	 * @param row
 	 *            The index of the row position in the array
 	 * @param col
@@ -72,7 +72,7 @@ public class Array7x7 {
 	 * Gets the element from the array from the given row and column. The values of
 	 * {@code row} and {@code col} must be >= 0 and < {@code Array7x7.LENGTH} or an
 	 * {@link IndexOutOfBoundsException} will be thrown.
-	 * 
+	 *
 	 * @param row
 	 *            The index of the row position in the array
 	 * @param col
@@ -90,7 +90,7 @@ public class Array7x7 {
 	/**
 	 * Sets all the values in the arrays row with the given index, using the values
 	 * from the array in the given {@code Array7}.
-	 * 
+	 *
 	 * @param row
 	 *            The index of the row in the array to set.
 	 * @param theRow
@@ -107,7 +107,7 @@ public class Array7x7 {
 
 	/**
 	 * Gets the values from the row of the array with the given index.
-	 * 
+	 *
 	 * @param row
 	 *            The index of the row from the array to get.
 	 * @return An {@code Array7} object containing the requested array.
@@ -123,7 +123,7 @@ public class Array7x7 {
 	/**
 	 * Sets all the values in the arrays column with the given index, using the
 	 * values from the array in the given {@code Array7}.
-	 * 
+	 *
 	 * @param col
 	 *            The index of the column in the array to set.
 	 * @param theCol
@@ -140,7 +140,7 @@ public class Array7x7 {
 
 	/**
 	 * Gets the values from the column of the array with the given index.
-	 * 
+	 *
 	 * @param col
 	 *            The index of the column from the array to get.
 	 * @return An {@code Array7} object containing the requested array.
@@ -157,7 +157,7 @@ public class Array7x7 {
 
 	/**
 	 * Creates a copy of the two dimensional array and returns the copy.
-	 * 
+	 *
 	 * @return a copy of the array of this instance
 	 */
 	public int[][] toIntArray() {
@@ -175,7 +175,7 @@ public class Array7x7 {
 	/**
 	 * Copies the values from the given {@code Array7x7}'s array to this objects
 	 * array.
-	 * 
+	 *
 	 * @param array7x7
 	 *            The object who's array will be used to set this object's array.
 	 */
@@ -186,7 +186,7 @@ public class Array7x7 {
 
 	/**
 	 * Copies this object with it's array and returns the new copy.
-	 * 
+	 *
 	 * @return a copy of this object.
 	 */
 	public Array7x7 getArray() {
@@ -195,7 +195,7 @@ public class Array7x7 {
 
 	/**
 	 * Copies the values from the given array to this objects array.
-	 * 
+	 *
 	 * @param array
 	 *            The array that will be used to set the array of this object.
 	 */
@@ -209,4 +209,24 @@ public class Array7x7 {
 		}
 	}
 
+	Array7 shiftRight(Array7 leftColumn) {
+		Array7 temp = new Array7(this.getCol(Array7.LENGTH - 1));
 
+		for (int i = Array7.LENGTH - 2; i >= 0; i--) {
+			this.setCol(i + 1, this.getCol(i));
+		}
+		this.setCol(0, leftColumn);
+		return temp;
+	}
+
+	Array7 shiftLeft(Array7 rightColumn) {
+		Array7 temp = new Array7(this.getCol(0));
+
+		for (int i = 1; i < Array7.LENGTH; i++) {
+			this.setCol(i - 1, this.getCol(i));
+		}
+		this.setCol(Array7.LENGTH - 1, rightColumn);
+
+		return temp;
+	}
+}
