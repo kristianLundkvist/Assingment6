@@ -17,7 +17,7 @@ public class TextColorArray {
 		String input = JOptionPane.showInputDialog(null, "Input a string").toUpperCase();
 		
 		char[] inputArray = new char[input.length()];
-		int inputlength = input.length() * 7 + 49;
+		int inputlength = input.length() * 7 + 49 +input.length();
 		int travelDistance = 4*7 + inputlength;
 		int inputIndex = 0;
 		for(int i = 0; i< input.length(); i++) {
@@ -133,7 +133,46 @@ public class TextColorArray {
 		break;
 		case 'Z': character2.setArray(convertIntArrayToBlack(Chars.charZ()));
 		break;
-		default: character2.setArray(convertIntArrayToBlack(Chars.nbr0()));
+		case '0': character2.setArray(convertIntArrayToBlack(Chars.nbr0()));
+		break; 
+		case '1': character2.setArray(convertIntArrayToBlack(Chars.nbr1()));
+		break; 
+		case '2': character2.setArray(convertIntArrayToBlack(Chars.nbr2()));
+		break; 
+		case '3': character2.setArray(convertIntArrayToBlack(Chars.nbr3()));
+		break; 
+		case '4': character2.setArray(convertIntArrayToBlack(Chars.nbr4()));
+		break; 
+		case '5': character2.setArray(convertIntArrayToBlack(Chars.nbr5()));
+		break; 
+		case '6': character2.setArray(convertIntArrayToBlack(Chars.nbr6()));
+		break; 
+		case '7': character2.setArray(convertIntArrayToBlack(Chars.nbr7()));
+		break; 
+		case '8': character2.setArray(convertIntArrayToBlack(Chars.nbr8()));
+		break; 
+		case ' ': character2.setArray(convertIntArrayToBlack(Chars.space()));
+		break; 
+		case '_': character2.setArray(convertIntArrayToBlack(Chars.underscore()));
+		break; 
+		case '+': character2.setArray(convertIntArrayToBlack(Chars.plus()));
+		break; 
+		case '-': character2.setArray(convertIntArrayToBlack(Chars.minus()));
+		break; 
+		case '/': character2.setArray(convertIntArrayToBlack(Chars.division()));
+		break; 
+		case '*': character2.setArray(convertIntArrayToBlack(Chars.multiplication()));
+		break; 
+		case '%': character2.setArray(convertIntArrayToBlack(Chars.percentage()));
+		break; 
+		case '@': character2.setArray(convertIntArrayToBlack(Chars.at()));
+		break; 
+		case '.': character2.setArray(convertIntArrayToBlack(Chars.dot()));
+		break; 
+		case ',': character2.setArray(convertIntArrayToBlack(Chars.comma()));
+		break; 
+		case '9': character2.setArray(convertIntArrayToBlack(Chars.nbr9()));
+		break; 
 		}
 	}
 	private static int[][] convertIntArrayToBlack(int[][] inArrayFromChars) {
