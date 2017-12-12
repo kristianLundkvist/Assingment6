@@ -1,5 +1,7 @@
 package p6;
 
+import java.util.Random;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
@@ -15,7 +17,7 @@ public class TextColorArray {
 	}
 	public static void main(String[] args) {
 		String input = JOptionPane.showInputDialog(null, "Input a string").toUpperCase();
-		
+		Random rand = new Random();
 		char[] inputArray = new char[input.length()];
 		int inputlength = input.length() * 7 + 49 +input.length();
 		int travelDistance = 4*7 + inputlength;
@@ -24,7 +26,7 @@ public class TextColorArray {
 			inputArray[i] = input.charAt(i);
 		}
 		Array7x7 character2 = new Array7x7();
-		getNextCharacter(character2, inputIndex, inputArray);
+		
 
 		JFrame frame = new JFrame("Testshit");
 		frame.setDefaultCloseOperation(3);
@@ -50,7 +52,7 @@ public class TextColorArray {
 			secondFrame.shiftLeft(character.getCol(0));
 			if(i%8 == 0 && inputIndex < inputArray.length) {
 				
-				getNextCharacter(character2, inputIndex, inputArray);
+				character2.setArray(Chars.getChar((char)inputArray[inputIndex], Color.argb(0xFF, 0xFF+rand.nextInt(256), 0xFF+rand.nextInt(256), 0xFF+rand.nextInt(256))));
 				inputIndex++;
 				character.shiftLeft(empty.getCol(0));
 			} else { 
@@ -70,7 +72,7 @@ public class TextColorArray {
 
 
 			try {
-				Thread.sleep(50);
+				Thread.sleep(5);
 			} catch (Exception e) {
 				// TODO: handle exception
 			};
@@ -78,115 +80,5 @@ public class TextColorArray {
 		}
 	}
 
-	private static void getNextCharacter(Array7x7 character2, int currentIndexInInputArray, char[] inputArray) {
-		char temp = inputArray[currentIndexInInputArray];
-		switch(temp) {
-		case 'A': character2.setArray(convertIntArrayToBlack(Chars.charA()));
-		break;
-		case 'B': character2.setArray(convertIntArrayToBlack(Chars.charB()));
-		break;
-		case 'C': character2.setArray(convertIntArrayToBlack(Chars.charC()));
-		break;
-		case 'D': character2.setArray(convertIntArrayToBlack(Chars.charD()));
-		break;
-		case 'E': character2.setArray(convertIntArrayToBlack(Chars.charE()));
-		break;
-		case 'F': character2.setArray(convertIntArrayToBlack(Chars.charF()));
-		break;
-		case 'G': character2.setArray(convertIntArrayToBlack(Chars.charG()));
-		break;
-		case 'H': character2.setArray(convertIntArrayToBlack(Chars.charH()));
-		break;
-		case 'I': character2.setArray(convertIntArrayToBlack(Chars.charI()));
-		break;
-		case 'J': character2.setArray(convertIntArrayToBlack(Chars.charJ()));
-		break;
-		case 'K': character2.setArray(convertIntArrayToBlack(Chars.charK()));
-		break;
-		case 'L': character2.setArray(convertIntArrayToBlack(Chars.charL()));
-		break;
-		case 'M': character2.setArray(convertIntArrayToBlack(Chars.charM()));
-		break;
-		case 'N': character2.setArray(convertIntArrayToBlack(Chars.charN()));
-		break;
-		case 'O': character2.setArray(convertIntArrayToBlack(Chars.charO()));
-		break;
-		case 'P': character2.setArray(convertIntArrayToBlack(Chars.charP()));
-		break;
-		case 'Q': character2.setArray(convertIntArrayToBlack(Chars.charQ()));
-		break;
-		case 'R': character2.setArray(convertIntArrayToBlack(Chars.charR()));
-		break;
-		case 'S': character2.setArray(convertIntArrayToBlack(Chars.charS()));
-		break;
-		case 'T': character2.setArray(convertIntArrayToBlack(Chars.charT()));
-		break;
-		case 'U': character2.setArray(convertIntArrayToBlack(Chars.charU()));
-		break;
-		case 'V': character2.setArray(convertIntArrayToBlack(Chars.charV()));
-		break;
-		case 'W': character2.setArray(convertIntArrayToBlack(Chars.charW()));
-		break;
-		case 'X': character2.setArray(convertIntArrayToBlack(Chars.charX()));
-		break;
-		case 'Y': character2.setArray(convertIntArrayToBlack(Chars.charY()));
-		break;
-		case 'Z': character2.setArray(convertIntArrayToBlack(Chars.charZ()));
-		break;
-		case '0': character2.setArray(convertIntArrayToBlack(Chars.nbr0()));
-		break; 
-		case '1': character2.setArray(convertIntArrayToBlack(Chars.nbr1()));
-		break; 
-		case '2': character2.setArray(convertIntArrayToBlack(Chars.nbr2()));
-		break; 
-		case '3': character2.setArray(convertIntArrayToBlack(Chars.nbr3()));
-		break; 
-		case '4': character2.setArray(convertIntArrayToBlack(Chars.nbr4()));
-		break; 
-		case '5': character2.setArray(convertIntArrayToBlack(Chars.nbr5()));
-		break; 
-		case '6': character2.setArray(convertIntArrayToBlack(Chars.nbr6()));
-		break; 
-		case '7': character2.setArray(convertIntArrayToBlack(Chars.nbr7()));
-		break; 
-		case '8': character2.setArray(convertIntArrayToBlack(Chars.nbr8()));
-		break; 
-		case ' ': character2.setArray(convertIntArrayToBlack(Chars.space()));
-		break; 
-		case '_': character2.setArray(convertIntArrayToBlack(Chars.underscore()));
-		break; 
-		case '+': character2.setArray(convertIntArrayToBlack(Chars.plus()));
-		break; 
-		case '-': character2.setArray(convertIntArrayToBlack(Chars.minus()));
-		break; 
-		case '/': character2.setArray(convertIntArrayToBlack(Chars.division()));
-		break; 
-		case '*': character2.setArray(convertIntArrayToBlack(Chars.multiplication()));
-		break; 
-		case '%': character2.setArray(convertIntArrayToBlack(Chars.percentage()));
-		break; 
-		case '@': character2.setArray(convertIntArrayToBlack(Chars.at()));
-		break; 
-		case '.': character2.setArray(convertIntArrayToBlack(Chars.dot()));
-		break; 
-		case ',': character2.setArray(convertIntArrayToBlack(Chars.comma()));
-		break; 
-		case '9': character2.setArray(convertIntArrayToBlack(Chars.nbr9()));
-		break; 
-		}
-	}
-	private static int[][] convertIntArrayToBlack(int[][] inArrayFromChars) {
-		int[][] katt = inArrayFromChars;
-		int[][] temp = new int [7][7];
-		for(int i = 0; i < 7; i++) {
-			for (int j = 0; j <7; j++) {
-				if(katt[i][j] == 0) {
-					temp[i][j] = 0;
-				} else {
-					temp[i][j] = Color.BLACK;
-				}
-			}
-		}
-		return temp;
-	}
+	
 }
