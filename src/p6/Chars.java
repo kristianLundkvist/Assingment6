@@ -616,9 +616,9 @@ public class Chars
 		int[][] at = {
 				{0,0,color,color,color,0,0},
 				{0,color,0,0,0,color,0},
-				{color,0,0,0,0,0,color},
 				{color,0,color,color,color,0,color},
-				{color,0,color,0,color,color,color},
+				{color,0,color,0,color,0,color},
+				{color,0,color,color,color,color,color},
 				{0,color,0,0,0,0,0},
 				{0,0,color,color,color,color,color}};
 		

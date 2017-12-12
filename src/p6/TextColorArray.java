@@ -72,7 +72,7 @@ public class TextColorArray {
 
 
 			try {
-				Thread.sleep(5);
+				Thread.sleep(50);
 			} catch (Exception e) {
 				// TODO: handle exception
 			};
