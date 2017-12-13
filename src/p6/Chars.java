@@ -389,7 +389,7 @@ public class Chars
 	
 	public static int[][] nbr1(int color)
 	{
-		int[][] nbrcolor = {
+		int[][] nbr1 = {
 				{0,0,0,color,0,0,0},
 				{0,0,color,color,0,0,0},
 				{0,0,0,color,0,0,0},
@@ -398,7 +398,7 @@ public class Chars
 				{0,0,0,color,0,0,0},
 				{0,0,color,color,color,0,0}};
 		
-		return nbrcolor;
+		return nbr1;
 	}
 	
 	public static int[][] nbr2(int color)
@@ -616,9 +616,9 @@ public class Chars
 		int[][] at = {
 				{0,0,color,color,color,0,0},
 				{0,color,0,0,0,color,0},
+				{color,0,0,0,0,0,color},
 				{color,0,color,color,color,0,color},
-				{color,0,color,0,color,0,color},
-				{color,0,color,color,color,color,color},
+				{color,0,color,0,color,color,color},
 				{0,color,0,0,0,0,0},
 				{0,0,color,color,color,color,color}};
 		
@@ -651,6 +651,90 @@ public class Chars
 				{0,0,0,color,0,0,0}};
 		
 		return comma;
+	}
+	
+	public static int[][] questionmark(int color)
+	{
+		int[][] comma = {
+				{0,0,color,color,color,0,0},
+				{0,color,color,0,color,color,0},
+				{color,color,0,0,0,color,color},
+				{0,0,0,0,color,color,0},
+				{0,0,0,color,color,0,0},
+				{0,0,0,0,0,0,0},
+				{0,0,0,color,color,0,0}};
+		
+		return comma;
+	}
+	
+	public static int[][] equals(int color)
+	{
+		int[][] equals = {
+				{0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0},
+				{0,color,color,color,color,color,0},
+				{0,0,0,0,0,0,0},
+				{0,color,color,color,color,color,0},
+				{0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0}};
+		
+		return equals;
+	}
+	
+	public static int[][] rightParentheses(int color)
+	{
+		int[][] rightParentheses = {
+				{color,0,0,0,0,0,0},
+				{0,color,0,0,0,0,0},
+				{0,0,color,0,0,0,0},
+				{0,0,color,0,0,0,0},
+				{0,0,color,0,0,0,0},
+				{0,color,0,0,0,0,0},
+				{color,0,0,0,0,0,0}};
+		
+		return rightParentheses;
+	}
+	
+	public static int[][] leftParentheses(int color)
+	{
+		int[][] leftParentheses = {
+				{0,0,0,0,0,0,color},
+				{0,0,0,0,0,color,0},
+				{0,0,0,0,color,0,0},
+				{0,0,0,0,color,0,0},
+				{0,0,0,0,color,0,0},
+				{0,0,0,0,0,color,0},
+				{0,0,0,0,0,0,color}};
+		
+		return leftParentheses;
+	}
+	
+	public static int[][] happySmiley(int color)
+	{
+		int[][] happySmiley = {
+				{0,0,0,0,0,0,0},
+				{0,0,color,0,color,0,0},
+				{0,0,color,0,color,0,0},
+				{0,0,color,0,color,0,0},
+				{0,color,0,0,0,color,0},
+				{0,0,color,color,color,0,0},
+				{0,0,0,0,0,0,0}};
+		
+		return happySmiley;
+	}
+	
+	public static int[][] sadSmiley(int color)
+	{
+		int[][] sadSmiley = {
+				{0,0,0,0,0,0,0},
+				{0,0,color,0,color,0,0},
+				{0,0,color,0,color,0,0},
+				{0,0,color,0,color,0,0},
+				{0,0,0,0,0,0,0},
+				{0,0,color,color,color,0,0},
+				{0,color,0,0,0,color,0}};
+		
+		return sadSmiley;
 	}
 	
 	public static Array7x7 getChar(char chr, int color) 
@@ -748,9 +832,19 @@ public class Chars
 		break;
 		case '.': res = new Array7x7(dot(color));
 		break;
-		case ',': res = new Array7x7(comma(color));
+		case '?': res = new Array7x7(questionmark(color));
 		break;
-		default : res = new Array7x7(space(color));
+		case '=': res = new Array7x7(equals(color));
+		break;
+		case '(': res = new Array7x7(leftParentheses(color));
+		break;
+		case ')': res = new Array7x7(rightParentheses(color));
+		break;
+		case '>': res = new Array7x7(happySmiley(color));
+		break;
+		case '<': res = new Array7x7(sadSmiley(color));
+		break;
+		default : res = new Array7x7(sadSmiley(color));
 		break;
 		}
 		return res;
