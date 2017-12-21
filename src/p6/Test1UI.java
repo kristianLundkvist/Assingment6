@@ -2,10 +2,10 @@ package p6;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,26 +17,20 @@ import javax.swing.SwingConstants;
 
 public class Test1UI extends JPanel {
 
+	private static final long serialVersionUID = 6391566115349859301L;
 	private final Dimension STANDARD_FIELD_DIMENSION = new Dimension(20, 20);
 	private final int STANDARD_ARRAY_LENGTH = 7;
 	private final int STANDARD_MARGIN = 2;
-	private final int STANDARD_INT_ONE = 1;
 	private final JLabel COLUMN_NBR = new JLabel("Kolumn nummer");
 	private final JLabel ROW_NBR = new JLabel("Rad nummer");
-
-	private JPanel uiContainer = new JPanel();
 	private JPanel array7x7Panel = new JPanel(
 			new GridLayout(STANDARD_ARRAY_LENGTH, STANDARD_ARRAY_LENGTH, STANDARD_MARGIN, STANDARD_MARGIN));
 	private JPanel leftColumnPanel = new JPanel(
-			new GridLayout(STANDARD_ARRAY_LENGTH, STANDARD_INT_ONE, STANDARD_MARGIN, STANDARD_MARGIN));
+			new GridLayout(STANDARD_ARRAY_LENGTH, 1, STANDARD_MARGIN, STANDARD_MARGIN));
 	private JPanel bottomRowPanel = new JPanel(new GridLayout(1, STANDARD_ARRAY_LENGTH));
-	private JPanel rowControlPanel = new JPanel(new GridBagLayout());
-	private JPanel columnControlPanel = new JPanel(new GridBagLayout());
-	private JPanel controlContainer = new JPanel(new GridLayout(2, 1));
+	private JPanel controlPanel = new JPanel();
 	private JPanel arrayContainer = new JPanel(new BorderLayout());
-
 	private JLabel[][] labelArray = new JLabel[STANDARD_ARRAY_LENGTH][STANDARD_ARRAY_LENGTH];
-
 	private JButton btnReadRow = new JButton("Läs rad");
 	private JButton btnWriteRow = new JButton("Skriv rad");
 	private JButton btnReadColumn = new JButton("Läs kolumn");
@@ -46,18 +40,25 @@ public class Test1UI extends JPanel {
 
 	private JTextField[] columnTextField = new JTextField[STANDARD_ARRAY_LENGTH];
 	private JTextField[] rowTextField = new JTextField[STANDARD_ARRAY_LENGTH];
-	private Controller controller;
+	private ArrayController controller;
+	private BtnListener btnListener;
 
-	public Test1UI() {
-		// this.controller = controller;
+	/**
+	 * Constructor that initializes the panel, with all its components. The
+	 * constructor also connects this instance to the given instance of the
+	 * controller.
+	 *
+	 * @param controller
+	 *            The controller that will control this instance.
+	 */
+	public Test1UI(ArrayController controller) {
+		this.controller = controller;
+		btnListener = new BtnListener();
 		setLayout(new BorderLayout());
 		initializeArray7x7();
 		initializeTextFieldArray();
-		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(STANDARD_MARGIN, STANDARD_MARGIN, STANDARD_MARGIN, STANDARD_MARGIN);
 
 		labelArrayManager();
-
 		textFieldArrayArranger(columnTextField, leftColumnPanel);
 		textFieldArrayArranger(rowTextField, bottomRowPanel);
 
@@ -69,20 +70,40 @@ public class Test1UI extends JPanel {
 		bottomRowPanel.setBorder(BorderFactory.createEmptyBorder(0, 49, 0, 0));
 		arrayContainer.add(bottomRowPanel, BorderLayout.SOUTH);
 
-		// rowControlPanel.add(ROW_NBR);
-		// rowControlPanel.add(rowTextFieldControl);
+		controlPanel.setLayout(null);
+		controlPanel.setPreferredSize(new Dimension(230, 300));
+		ROW_NBR.setBounds(40, 10, 80, 20);
+		controlPanel.add(ROW_NBR);
+		rowTextFieldControl.setBounds(150, 10, 40, 20);
+		controlPanel.add(rowTextFieldControl);
+		btnReadRow.setBounds(50, 40, 120, 30);
+		controlPanel.add(btnReadRow);
+		btnWriteRow.setBounds(50, 80, 120, 30);
+		controlPanel.add(btnWriteRow);
+		COLUMN_NBR.setBounds(30, 160, 110, 20);
+		controlPanel.add(COLUMN_NBR);
+		columnTextFieldControl.setBounds(150, 160, 40, 20);
+		controlPanel.add(columnTextFieldControl);
+		btnReadColumn.setBounds(50, 190, 120, 30);
+		controlPanel.add(btnReadColumn);
+		btnWriteColumn.setBounds(50, 230, 120, 30);
+		controlPanel.add(btnWriteColumn);
 
-		uiContainer.setLayout(new BorderLayout());
-		uiContainer.add(arrayContainer);
-		// uiContainer.add(rowControlPanel);
+		btnReadRow.addActionListener(btnListener);
+		btnWriteRow.addActionListener(btnListener);
+		btnReadColumn.addActionListener(btnListener);
+		btnWriteColumn.addActionListener(btnListener);
 
-		add(uiContainer);
+		add(arrayContainer, BorderLayout.CENTER);
+		add(controlPanel, BorderLayout.EAST);
 
+		controller.setUI(this);
+		controller.updateView();
 	}
 
 	/**
 	 * Method adds textfield arrays.
-	 * 
+	 *
 	 * @param textArray
 	 * @param panel
 	 */
@@ -130,12 +151,137 @@ public class Test1UI extends JPanel {
 		}
 	}
 
+	/**
+	 * Updates all the information presented in the window to the information stored
+	 * in the given arrays.
+	 *
+	 * @param boxArray
+	 *            The array to set the information in the labelArray in the window.
+	 * @param row
+	 *            The array to set the information in the rowTextField in the
+	 *            window.
+	 * @param column
+	 *            The array to set the information in the columnTextField in the
+	 *            window.
+	 */
+	public void updateView(int[][] boxArray, int[] row, int[] column) {
+		for (int i = 0; i < STANDARD_ARRAY_LENGTH; i++) {
+			columnTextField[i].setText(column[i] + "");
+			rowTextField[i].setText(row[i] + "");
+			for (int j = 0; j < STANDARD_ARRAY_LENGTH; j++) {
+				labelArray[i][j].setText(boxArray[i][j] + "");
+			}
+		}
+	}
+
+	/**
+	 * Returns the number presented on the chosen JLabel in the labelArray in the
+	 * window.
+	 *
+	 * @param row
+	 *            The row in the labelArray
+	 * @param column
+	 *            The column in the labelArray
+	 * @return The number presented on the JLabel
+	 */
+	public int getlblArrayElement(int row, int column) {
+		int res = 0;
+		try {
+			res = Integer.parseInt(labelArray[row][column].getText());
+		} catch (NumberFormatException e) {
+			System.out.println("Fel");
+		}
+		return res;
+	}
+
+	/**
+	 * @return The number in the rowTextFieldControl.
+	 */
+	public int getRowTextFieldControl() {
+		return Integer.parseInt(rowTextFieldControl.getText());
+	}
+
+	/**
+	 * @return The number in the columnTextFieldControl.
+	 */
+	public int getColumnTextFieldControl() {
+		return Integer.parseInt(columnTextFieldControl.getText());
+	}
+
+	/**
+	 * @return The numbers in the columnTextFieldArray, stored in an {@code Array7}
+	 *         object.
+	 */
+	public Array7 getColumnTextFieldArray() {
+		Array7 array = new Array7();
+		for (int i = 0; i < STANDARD_ARRAY_LENGTH; i++) {
+			int nbr = Integer.parseInt(columnTextField[i].getText());
+			array.setElement(i, nbr);
+		}
+
+		return array;
+	}
+
+	/**
+	 * @return The numbers in the rowTextFieldArray, stored in an {@code Array7}.
+	 */
+	public Array7 getRowTextFieldArray() {
+		Array7 array = new Array7();
+		for (int i = 0; i < STANDARD_ARRAY_LENGTH; i++) {
+			int nbr = Integer.parseInt(rowTextField[i].getText());
+			array.setElement(i, nbr);
+		}
+
+		return array;
+	}
+
+	/**
+	 * Class that implements the interface ActionListener. This class can listen to
+	 * the buttons from the {@code Test1UIAlternativ} and call on different methods
+	 * in the controller class based on which button has been pushed.
+	 *
+	 * @author Tim Normark
+	 */
+	private class BtnListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == btnReadRow) {
+				controller.readRow();
+
+			} else if (e.getSource() == btnWriteRow) {
+				controller.writeRow();
+
+			} else if (e.getSource() == btnReadColumn) {
+				controller.readColumn();
+
+			} else if (e.getSource() == btnWriteColumn) {
+				controller.writeColumn();
+			}
+		}
+
+	}
+
+	// Testmetod
 	public static void main(String[] args) {
-		Test1UI UI = new Test1UI();
+		Random rand = new Random();
+		int[][] n = new int[7][7];
+		for (int i = 0; i < n.length; i++) {
+			for (int j = 0; j < n[i].length; j++) {
+				n[i][j] = rand.nextInt(10);
+			}
+		}
+		Array7x7 array = new Array7x7(n);
+		Array7 row = new Array7();
+		Array7 column = new Array7();
+		ArrayController controller = new ArrayController(array, row, column);
+		Test1UI UI = new Test1UI(controller);
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(3);
 		frame.add(UI);
 		frame.pack();
+		frame.setLocation(400, 200);
 		frame.setVisible(true);
 	}
+
 }

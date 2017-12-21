@@ -209,12 +209,10 @@ public class Array7x7 {
 		}
 	}
 
-	// New shit to get Test2UI to work //
-
 	/**
 	 * Basically shifts array right with the inparam leftcolumn ending up in array
 	 * column 0 and returning the array7 column rolling over on the right side.
-	 * 
+	 *
 	 * @param leftColumn
 	 *            - the column to write into first column of array
 	 * @return the array7 that rolls over to the right.
@@ -233,7 +231,7 @@ public class Array7x7 {
 	 * Basically shifts array left with the inparam rightcolumn ending up in array
 	 * column length-1 and returning the array7 column rolling over on the left
 	 * side.
-	 * 
+	 *
 	 * @param rightColumn
 	 *            - the column to write into last column of array
 	 * @return the array7 that rolls over to the left.

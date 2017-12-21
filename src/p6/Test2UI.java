@@ -17,7 +17,11 @@ import javax.swing.border.EmptyBorder;
 
 public class Test2UI extends JPanel {
 
-	private Controller2 controller;
+	/**
+	 * katt
+	 */
+	private static final long serialVersionUID = 1L;
+	private Controller controller;
 	private JLabel[][] labelArray;
 	private JTextField[] leftColumn;
 	private JTextField[] rightColumn;
@@ -25,8 +29,8 @@ public class Test2UI extends JPanel {
 	private JButton btnRight = new JButton("Flytta Höger");
 	private ButtonListener bl;
 
-	public Test2UI(Controller2 controller2) {
-		this.controller = controller2;
+	public Test2UI(Controller controller) {
+		this.controller = controller;
 		controller.setUI(this);
 		bl = new ButtonListener();
 		this.setLayout(new BorderLayout());
@@ -112,7 +116,7 @@ public class Test2UI extends JPanel {
 		Array7x7 array = new Array7x7(n);
 		Array7 row = new Array7();
 		Array7 column = new Array7();
-		Controller2 controller = new Controller2(array, row, column);
+		Controller controller = new Controller(array, row, column);
 		Test2UI ui = new Test2UI(controller);
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(3);
@@ -134,6 +138,7 @@ public class Test2UI extends JPanel {
 
 	private class ButtonListener implements ActionListener {
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnLeft) {
 				controller.shiftLeft();

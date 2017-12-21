@@ -3,95 +3,142 @@ package p6;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * This is a rolling text window. It allows the user to input a text string and
+ * displays the pixelated text. The window width is set in the WINDOW_BREAD
+ * constant.
+ *
+ * @author Christoffer Book
+ */
 public class RollingTextWindow extends ColorDisplay {
-	private final static int WINDOW_BREAD = 35;
-	private final static int CHARACTER_SPACE = 7;
-	private final static Array7x7 EMPTY_ARRAY = new Array7x7();
-	
+
+	private static final long serialVersionUID = 1L;
+	/**
+	 * Constant setting the width of the window
+	 */
+	private static final int WINDOW_BREAD = 35;
+	/**
+	 * Constant defining the Width of the character
+	 */
+	private static final int CHARACTER_SPACE = 7;
+	/**
+	 * Constant for Empty Array7x7 from which the empty columns are read.
+	 */
+	private static final Array7x7 EMPTY_ARRAY = new Array7x7();
+	/**
+	 * The array in which the string is stored after being converted to chars
+	 */
 	private char[] inputArray;
-	private String input; 
+	/**
+	 * String holding the users input, temporarily.
+	 */
+	private String input;
+	/**
+	 * Counter used to determine when to read in a new character.
+	 */
 	private int counter;
-	private int inputIndex; 
+	/**
+	 * Keeps track of which character to set from inputArray.
+	 */
+	private int inputIndex;
+	/**
+	 * Timer, keeps track of time.
+	 */
 	private Timer timer;
-	
-	private Array7x7 firstFrame, secondFrame, thirdFrame, fourthFrame, fifthFrame, outsideFrame;
-	 
+	/**
+	 * Array of Array7x7 holding references to the frames.
+	 */
+	private Array7x7[] frames = new Array7x7[(WINDOW_BREAD / CHARACTER_SPACE) + 1];
+
+	/**
+	 * Constructor, initialized values, gets input from user, converts string to
+	 * chars and stored in array of chars, for easier management, starts the timer
+	 * with set intervals and sets the first character .
+	 *
+	 */
 	public RollingTextWindow() {
-		super(1,5,Color.WHITE,Color.GRAY,1,10);
-		timer = new Timer();
-		
+		super(1, WINDOW_BREAD / CHARACTER_SPACE, Color.WHITE, Color.GRAY, 1, 10);
 		counter = 0;
-		input = JOptionPane.showInputDialog("Mata in en sträng!").toUpperCase();
-		setInputArray(input);
 		inputIndex = 0;
-		setFrames();
-		timer.schedule(new UpdateFrequence(), 50,50);
+		input = "";
+		timer = new Timer();
+		initFrames();
+
+		try {
+			input = JOptionPane.showInputDialog("Mata in en sträng!").toUpperCase();
+		} catch (NullPointerException e) {
+			System.exit(0);
+		}
+		setInputArray(input);
+
+		timer.schedule(new UpdateFrequence(), 50, 50);
 		setNewCharacter();
-		
 	}
-	
+
+	/**
+	 * Initializes the array of frames with empty Array7x7s
+	 */
+
+	private void initFrames() {
+		for (int i = 0; i < frames.length; i++) {
+			frames[i] = new Array7x7();
+		}
+	}
+
+	/**
+	 * Converts the input string to an array of chars for easier management.
+	 * 
+	 * @param input
+	 */
 	private void setInputArray(String input) {
 		inputArray = new char[input.length()];
-		for(int i = 0; i < inputArray.length; i++) {
+		for (int i = 0; i < inputArray.length; i++) {
 			inputArray[i] = input.charAt(i);
 		}
 	}
-	
-	private void setFrames() {
-		firstFrame = new Array7x7();
-		secondFrame = new Array7x7();
-		thirdFrame = new Array7x7();
-		fourthFrame = new Array7x7();
-		fifthFrame = new Array7x7();
-		outsideFrame =new Array7x7(); 
 
-	}
-	
+	/**
+	 * Sets the frame that´s not visible in window to the next character in
+	 * inputArray based on the inputIndex.
+	 */
 	private void setNewCharacter() {
-			if(inputIndex < inputArray.length) {
-				outsideFrame.setArray(Chars.getChar(inputArray[inputIndex], Color.BLACK));
-				inputIndex++;
-
-			}
-		
+		if (inputIndex < inputArray.length) {
+			frames[frames.length - 1].setArray(Chars.getChar(inputArray[inputIndex], Color.BLACK));
+			inputIndex++;
+		}
 	}
-	
-	private class UpdateFrequence extends TimerTask{
+
+	/**
+	 * Timer
+	 */
+	private class UpdateFrequence extends TimerTask {
+		@Override
+
+		/**
+		 * Shit that´s going down on timer intervals. Move characters in window, read
+		 * new character if necessary. Set the display to new values, and update the
+		 * display to show new values
+		 */
 		public void run() {
-			firstFrame.shiftLeft(secondFrame.getCol(0));
-			secondFrame.shiftLeft(thirdFrame.getCol(0));
-			thirdFrame.shiftLeft(fourthFrame.getCol(0));
-			fourthFrame.shiftLeft(fifthFrame.getCol(0));
-			fifthFrame.shiftLeft(outsideFrame.getCol(0));
-			outsideFrame.shiftLeft(EMPTY_ARRAY.getCol(0));
-			if(counter == CHARACTER_SPACE + 1) {
+			for (int i = 0; i < frames.length; i++) {
+				if (i != frames.length - 1) {
+					frames[i].shiftLeft(frames[i + 1].getCol(0));
+				} else {
+					frames[i].shiftLeft(EMPTY_ARRAY.getCol(0));
+				}
+			}
+			if (counter == CHARACTER_SPACE + 1) {
 				counter = 0;
 				setNewCharacter();
 			}
-			
-			setDisplay(firstFrame.toIntArray(), 0, 0);
-			setDisplay(secondFrame.toIntArray(), 0, 1);
-			setDisplay(thirdFrame.toIntArray(), 0, 2);
-			setDisplay(fourthFrame.toIntArray(), 0, 3);
-			setDisplay(fifthFrame.toIntArray(), 0, 4);
+			for (int i = 0; i < frames.length; i++) {
+				setDisplay(frames[i].toIntArray(), 0, i);
+			}
 			updateDisplay();
 			counter++;
 		}
 	}
 
-	public static void main(String[] args) {
-		
-		JFrame frame = new JFrame("test");
-		frame.setDefaultCloseOperation(3);
-		frame.add(new RollingTextWindow());
-		frame.pack();
-		frame.setVisible(true);
-		
-		
-	}
-	 
-	
 }

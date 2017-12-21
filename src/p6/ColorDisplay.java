@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 
 public class ColorDisplay extends JComponent {
 	private final int PAGE_SIZE = 7;
@@ -119,6 +118,7 @@ public class ColorDisplay extends JComponent {
 		}
 	}
 
+	@Override
 	public void repaint() {
 		updateDisplay();
 	}
@@ -150,6 +150,7 @@ public class ColorDisplay extends JComponent {
 		}
 	}
 
+	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (width != this.getWidth() || height != this.getHeight()) {
@@ -161,9 +162,9 @@ public class ColorDisplay extends JComponent {
 		int side = Math.min((getWidth() - gridStroke) / (horizontalPages * PAGE_SIZE) - gridStroke,
 				(getHeight() - gridStroke) / (verticalPages * PAGE_SIZE) - gridStroke);
 		int offsetX = (getWidth() - systemPaint[0].length * (gridStroke + side) - gridStroke) / 2; // beräknas för
-																									// centrering
+		// centrering
 		int offsetY = (getHeight() - systemPaint.length * (gridStroke + side) - gridStroke) / 2; // beräknas för
-																									// centrering
+		// centrering
 		dBufferG.setColor(displayGrid);
 		dBufferG.fillRect(0, 0, getWidth(), getHeight());
 		for (int row = 0; row < systemPaint.length; row++) {
@@ -186,19 +187,20 @@ public class ColorDisplay extends JComponent {
 		}
 	}
 
-	public static void main(String[] args) {
-		int[][] arr = { { Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED },
-				{ Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED },
-				{ Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED },
-				{ Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED },
-				{ Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED },
-				{ Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED },
-				{ Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED } };
-		ColorDisplay d = new ColorDisplay(4, 2, Color.WHITE, Color.BLACK, 1, 10);
-		d.setDisplay(arr, 2, 1); // arr har röd-värde i samtliga element
-		d.updateDisplay();
-
-		JOptionPane.showMessageDialog(null, d);
-		JOptionPane.showMessageDialog(null, new ColorDisplay(Color.RED, Color.WHITE));
-	}
+	/*
+	 * public static void main(String[] args) { int[][] arr = { { Color.RED,
+	 * Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED }, {
+	 * Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED
+	 * }, { Color.RED, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED,
+	 * Color.RED }, { Color.RED, Color.RED, Color.RED, Color.RED, Color.RED,
+	 * Color.RED, Color.RED }, { Color.RED, Color.RED, Color.RED, Color.RED,
+	 * Color.RED, Color.RED, Color.RED }, { Color.RED, Color.RED, Color.RED,
+	 * Color.RED, Color.RED, Color.RED, Color.RED }, { Color.RED, Color.RED,
+	 * Color.RED, Color.RED, Color.RED, Color.RED, Color.RED } }; ColorDisplay d =
+	 * new ColorDisplay(4, 2, Color.WHITE, Color.BLACK, 1, 10); d.setDisplay(arr, 2,
+	 * 1); // arr har röd-värde i samtliga element d.updateDisplay();
+	 * 
+	 * JOptionPane.showMessageDialog(null, d); JOptionPane.showMessageDialog(null,
+	 * new ColorDisplay(Color.RED, Color.WHITE)); }
+	 */
 }
