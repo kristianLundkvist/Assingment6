@@ -16,10 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class Test2UI extends JPanel {
-
-	/**
-	 * katt
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private Controller controller;
 	private JLabel[][] labelArray;
@@ -29,9 +26,9 @@ public class Test2UI extends JPanel {
 	private JButton btnRight = new JButton("Flytta Höger");
 	private ButtonListener bl;
 
-	public Test2UI(Controller controller) {
-		this.controller = controller;
-		controller.setUI(this);
+	public Test2UI(Controller arrayController) {
+		this.controller = arrayController;
+		arrayController.setUI(this);
 		bl = new ButtonListener();
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(600, 500));
@@ -64,7 +61,7 @@ public class Test2UI extends JPanel {
 		this.add(rightColumnPanel, BorderLayout.EAST);
 		this.add(btnPanel, BorderLayout.SOUTH);
 
-		controller.updateView();
+		arrayController.updateView();
 
 	}
 
@@ -103,27 +100,6 @@ public class Test2UI extends JPanel {
 		for (int i = 0; i < column.length; i++) {
 			panel.add(column[i]);
 		}
-	}
-
-	public static void main(String[] args) {
-		Random rand = new Random(); // testing shiz
-		int[][] n = new int[7][7];
-		for (int i = 0; i < n.length; i++) {
-			for (int j = 0; j < n[i].length; j++) {
-				n[i][j] = rand.nextInt(10);
-			}
-		}
-		Array7x7 array = new Array7x7(n);
-		Array7 row = new Array7();
-		Array7 column = new Array7();
-		Controller controller = new Controller(array, row, column);
-		Test2UI ui = new Test2UI(controller);
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(3);
-		frame.add(ui);
-		frame.pack();
-		frame.setLocation(400, 200);
-		frame.setVisible(true);
 	}
 
 	public void updateView(int[][] boardArray, int[] leftColumn, int[] rightColumn) {

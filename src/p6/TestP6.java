@@ -1,19 +1,21 @@
 package p6;
 
+import java.util.Scanner;
+
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 public class TestP6 {
 	public static void main(String[] args) {
 		String input;
 		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(3);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		Scanner reader = new Scanner(System.in);
 
 		int choice = -1;
 		do {
-
-			input = JOptionPane.showInputDialog(
-					"MENY! \n\n\t1. TestUI1\n\t2. TestUI2\n\t3. RollingTextWindow\n\n\t0. Avsluta\n\n");
+			System.out.println("MENY! \n1. TestUI1\n2. TestUI2\n3. RollingTextWindow\n0. Avsluta");
+			input = reader.nextLine();
 			if (input == null) {
 				System.exit(-1);
 			}
@@ -24,12 +26,27 @@ public class TestP6 {
 			}
 			switch (choice) {
 			case 1:
-				Thread thread = new Thread();
+				frame.getContentPane().removeAll();
+				frame.add(new Test1UI(new ArrayController(new Array7x7(), new Array7(), new Array7())));
+				break;
+
+			case 2:
+				frame.getContentPane().removeAll();
+				frame.add(new Test2UI(new Controller(new Array7x7(), new Array7(), new Array7())));
+				break;
+
+			case 3:
+				frame.getContentPane().removeAll();
+				frame.add(new RollingTextWindow());
+				break;
 			}
 			frame.pack();
 			frame.setVisible(true);
-			break;
+
 		} while (choice != 0);
+
+		reader.close();
+		System.exit(0);
 
 	}
 }

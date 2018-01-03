@@ -261,27 +261,4 @@ public class Test1UI extends JPanel {
 		}
 
 	}
-
-	// Testmetod
-	public static void main(String[] args) {
-		Random rand = new Random();
-		int[][] n = new int[7][7];
-		for (int i = 0; i < n.length; i++) {
-			for (int j = 0; j < n[i].length; j++) {
-				n[i][j] = rand.nextInt(10);
-			}
-		}
-		Array7x7 array = new Array7x7(n);
-		Array7 row = new Array7();
-		Array7 column = new Array7();
-		ArrayController controller = new ArrayController(array, row, column);
-		Test1UI UI = new Test1UI(controller);
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(3);
-		frame.add(UI);
-		frame.pack();
-		frame.setLocation(400, 200);
-		frame.setVisible(true);
-	}
-
 }
