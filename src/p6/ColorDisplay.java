@@ -199,7 +199,7 @@ public class ColorDisplay extends JComponent {
 	 * Color.RED, Color.RED, Color.RED, Color.RED, Color.RED } }; ColorDisplay d =
 	 * new ColorDisplay(4, 2, Color.WHITE, Color.BLACK, 1, 10); d.setDisplay(arr, 2,
 	 * 1); // arr har röd-värde i samtliga element d.updateDisplay();
-	 * 
+	 *
 	 * JOptionPane.showMessageDialog(null, d); JOptionPane.showMessageDialog(null,
 	 * new ColorDisplay(Color.RED, Color.WHITE)); }
 	 */

@@ -6,7 +6,7 @@ package p6;
  * instances of {@code Array7} and one instance of {@code Array7x7} where data
  * is stored. The class has public methods that reflect the functionality of the
  * 4 buttons on {@code Test1UIAlternativ}.
- * 
+ *
  * @author Tim Normark
  */
 public class ArrayController {
@@ -29,18 +29,18 @@ public class ArrayController {
 	private Array7 column;
 
 	/**
-	 * Constructor that sets the values of this instance's variables, except for
-	 * the {@code Test1UIAlternativ}
-	 * 
+	 * Constructor that sets the values of this instance's variables, except for the
+	 * {@code Test1UIAlternativ}
+	 *
 	 * @param array
 	 *            The {@code Array7x7} representing the labelArray in the
 	 *            {@code Test1UIAlternativ}.
 	 * @param leftColumn
-	 *            The {@code Array7} representing the {@code columnTextField} in
-	 *            the {@code Test1UIAlternativ}.
+	 *            The {@code Array7} representing the {@code columnTextField} in the
+	 *            {@code Test1UIAlternativ}.
 	 * @param bottomColumn
-	 *            The {@code Array7} representing the {@code rowTextField} in
-	 *            the {@code Test1UIAlternativ}
+	 *            The {@code Array7} representing the {@code rowTextField} in the
+	 *            {@code Test1UIAlternativ}
 	 */
 	public ArrayController(Array7x7 array, Array7 leftColumn, Array7 bottomColumn) {
 		this.array = array;
@@ -49,8 +49,8 @@ public class ArrayController {
 	}
 
 	/**
-	 * Sets the UI which the controller ill control.
-	 * 
+	 * Sets the UI which the controller will control.
+	 *
 	 * @param ui
 	 *            The ui that the controller will control.
 	 */
@@ -59,8 +59,8 @@ public class ArrayController {
 	}
 
 	/**
-	 * updates all the labels and the textfields in the UI so they present the
-	 * data that is stored in the controllers {@code Array7x7} and it's two
+	 * updates all the labels and the textfields in the UI so they present the data
+	 * that is stored in the controllers {@code Array7x7} and it's two
 	 * {@code Array7}'s.
 	 */
 	public void updateView() {
@@ -86,8 +86,8 @@ public class ArrayController {
 	}
 
 	/**
-	 * Reads the selected column from the labelArray on the UI and then updates
-	 * the view on the UI to show that column in the columnTextField in the UI.
+	 * Reads the selected column from the labelArray on the UI and then updates the
+	 * view on the UI to show that column in the columnTextField in the UI.
 	 */
 	public void readColumn() {
 		try {
@@ -103,8 +103,8 @@ public class ArrayController {
 	}
 
 	/**
-	 * Sets the chosen row in the UI's labelArray to the numbers entered into
-	 * the rowTextField in the UI.
+	 * Sets the chosen row in the UI's labelArray to the numbers entered into the
+	 * rowTextField in the UI.
 	 */
 	public void writeRow() {
 		try {
@@ -120,8 +120,8 @@ public class ArrayController {
 	}
 
 	/**
-	 * Sets the chosen column in the UI's labelArray to the numbers entered into
-	 * the columnTextField in the UI.
+	 * Sets the chosen column in the UI's labelArray to the numbers entered into the
+	 * columnTextField in the UI.
 	 */
 	public void writeColumn() {
 		try {

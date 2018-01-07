@@ -89,7 +89,7 @@ public class RollingTextWindow extends ColorDisplay {
 
 	/**
 	 * Converts the input string to an array of chars for easier management.
-	 * 
+	 *
 	 * @param input
 	 */
 	private void setInputArray(String input) {
@@ -105,7 +105,7 @@ public class RollingTextWindow extends ColorDisplay {
 	 */
 	private void setNewCharacter() {
 		if (inputIndex < inputArray.length) {
-			frames[frames.length - 1].setArray(Chars.getChar(inputArray[inputIndex], Color.BLACK));
+			frames[frames.length - 1].setArray(Chars.getChar(inputArray[inputIndex], Color.RED));
 			inputIndex++;
 		}
 	}
