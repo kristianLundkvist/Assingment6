@@ -14,7 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
+/**
+ * A GUI class that shows an array7x7 with integer values on JLabels.
+ * The panel allows the user to write and read chosen rows and columns in the 2 dimensional array of JLabels on the panel.
+ */
 public class Test1UI extends JPanel {
 
 	private static final long serialVersionUID = 6391566115349859301L;
