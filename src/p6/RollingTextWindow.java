@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
  * constant.
  *
  * @author Christoffer Book
+ * @author Markus Wendler
  */
 public class RollingTextWindow extends ColorDisplay {
 
@@ -69,7 +70,7 @@ public class RollingTextWindow extends ColorDisplay {
 		try {
 			input = JOptionPane.showInputDialog("Mata in en sträng!").toUpperCase();
 		} catch (NullPointerException e) {
-			System.exit(0);
+
 		}
 		setInputArray(input);
 
@@ -108,6 +109,10 @@ public class RollingTextWindow extends ColorDisplay {
 			frames[frames.length - 1].setArray(Chars.getChar(inputArray[inputIndex], Color.RED));
 			inputIndex++;
 		}
+	}
+
+	public int getInputArrayLength() {
+		return inputArray.length;
 	}
 
 	/**

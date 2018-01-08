@@ -61,8 +61,8 @@ public class Controller {
 	}
 
 	/**
-	 * Method to send update the values in ui with the values stored in member
-	 * variables in controller
+	 * Method to update the values in ui with the values stored in member variables
+	 * in controller
 	 */
 	void updateView() {
 		ui.updateView(board.toIntArray(), leftColumn.toIntArray(), rightColumn.toIntArray());
