@@ -112,13 +112,10 @@ public class Array7 {
 	 *            Data as a array of integers.
 	 */
 	public void setArray(int[] array) {
-		int[] temp = new int[array.length];
-
 		for (int i = 0; i < array.length; i++) {
-			temp[i] = array[i];
+			this.array[i] = array[i];
 		}
 
-		this.array = temp;
 	}
 
 	/**
@@ -128,6 +125,8 @@ public class Array7 {
 	 *            Data as a Array7.
 	 */
 	public void setArray(Array7 array) {
-		this.array = array.toIntArray();
+		for(int i = 0; i < Array7.LENGTH; i++) {
+			this.array[i] = array.getElement(i);
+		}
 	}
 }

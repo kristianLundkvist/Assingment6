@@ -180,8 +180,11 @@ public class Array7x7 {
 	 *            The object who's array will be used to set this object's array.
 	 */
 	public void setArray(Array7x7 array7x7) {
-		this.arrays = new int[Array7x7.LENGTH][Array7x7.LENGTH];
-		this.arrays = array7x7.toIntArray();
+		for(int i = 0; i < Array7x7.LENGTH; i++) {
+			for(int j = 0; j < Array7x7.LENGTH; j++) {
+				this.arrays[i][j] = array7x7.getElement(i, j);
+			}
+		}
 	}
 
 	/**
@@ -200,8 +203,6 @@ public class Array7x7 {
 	 *            The array that will be used to set the array of this object.
 	 */
 	public void setArray(int[][] array) {
-		this.arrays = new int[LENGTH][LENGTH];
-
 		for (int i = 0; i < this.arrays.length; i++) {
 			for (int j = 0; j < this.arrays[i].length; j++) {
 				this.arrays[i][j] = array[i][j];
